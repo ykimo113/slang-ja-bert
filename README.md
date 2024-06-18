@@ -13,7 +13,7 @@
 * 上のコードから順に実行してください。
 
 ## 提案手法
-<img width="790" alt="modelpic" src="https://github.com/ykimo113/slangBert/assets/153272953/d4bf3bff-ef0c-43ef-af83-a63dd045edf3">
+<img width="790" alt="モデル概要図" src="https://github.com/ykimo113/slangBert/assets/153272953/d4bf3bff-ef0c-43ef-af83-a63dd045edf3">
 
 1. 既存BERTモデルでインターネットスラングを含むテキストをトークン化  
 2. トークン化の結果から、誤識別された単語を抽出  
@@ -25,23 +25,30 @@
 8. 追加学習を行ったモデルに対して、感情ラベル付きデータセットを用いてファインチューニング  
 9. 感情分析タスクの実行
 
-### 辞書の追加(3.および4.)
-<img width="1034" alt="辞書追加 概要" src="https://github.com/ykimo113/slangBert/assets/153272953/59c63175-ef05-402b-8d34-9fb33bfe5090">
+### 辞書の追加
+<img width="1034" alt="辞書追加の概要図" src="https://github.com/ykimo113/slangBert/assets/153272953/59c63175-ef05-402b-8d34-9fb33bfe5090">
 
 * 使用するシステム辞書:`mecab-ipadic-NEologd`
 * 誤分割された語句をユーザ辞書としてトークナイザに追加
 * 動詞等は活用形も含めて追加する
 
-### 追加学習(8.)
+### 追加学習
+<img width="930" alt="追加学習の概要図" src="https://github.com/ykimo113/slangBert/assets/153272953/a1cb7cda-1cfb-4929-a485-42df86723e3e">
 
 * 使用モデル:`bert-base-japanese-whole-word-masking`(東北大BERT)
 * 辞書に基づいたコーパスでMLMタスクに対して追加学習を行う
 * 追加した語句に対して適切なベクトルを獲得する
 
-
-
 ## 実験結果
-### 追加学習の学習曲線
+### 追加学習による単語ベクトルの獲得
+* 追加した語句に対する類義語を追加学習前後で取得する
+* 類義語の予測確率が高い上位5語を比較し、評価を行う
+* 類義語 = 単語ベクトルが類似した語句
+
+* 例:イヤンホホ (イヤホンを意味するインターネットスラング)
+
+
+* 追加学習前は「未知語である」ことを示す単語ベクトルから、追加学習後は「音楽分野の単語である」ことを示す単語ベクトルへ変化している
 
 ### 追加学習後の類義語
 
